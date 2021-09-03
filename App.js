@@ -1,14 +1,25 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, ScrollView } from 'react-native';
 
 export default function App() {
+  const [goal, setGoal]= useState('')
+  const [list, setList] = useState([])
+  const addingStateToGoals = (enteredVal) =>{
+    setGoal(enteredVal)
+  }
+  const addGoalsToList = () => {
+    setList(currentList => [...currentList,{key:Math.random().toString(), value:goal}])
+  }
   return (
     <View style={styles.screen}>
       <View style={styles.textContainer}>
-        <TextInput placeholder="Enter Course" style={styles.inputContainer}/>
-        <Button title="ADD"/>
+        <TextInput placeholder="Enter Course" style={styles.inputContainer} onChangeText={addingStateToGoals} value={goal}/>
+        <Button title="ADD" onPress={addGoalsToList}/>
       </View>
+      <ScrollView>
+        {list.map((listVal) => <Text style={styles.textDisplay} key={listVal.key}>{listVal.value}</Text>)}
+      </ScrollView>
     </View>
   );
 };
@@ -29,6 +40,13 @@ const styles = StyleSheet.create({
      padding:5,
      borderWidth:2,
      borderColor:'black'
+   },
+   textDisplay:{
+     marginVertical:10,
+     padding:10,
+     borderColor:'grey',
+     backgroundColor:'#fff8dc',
+     borderWidth:1
    }
 
 
