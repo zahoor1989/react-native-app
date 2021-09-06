@@ -18,12 +18,15 @@ export default function App() {
       return currentList.filter(goal => goal.key !== key);
     })
   }
+  const cancelHandler = () => {
+    setIsOpen(false);
+  }
   const openModal = () => {
     setIsOpen(true)
   }
 return (
 <View style={styles.screen}>
-<GoalInput onAddGoal={addGoalsToList} open={isOpen} />
+<GoalInput onAddGoal={addGoalsToList} open={isOpen}  onCancel={cancelHandler}/>
 <Button onPress={()=> openModal()} title="Add List"/>
 <FlatList 
       data={list}
